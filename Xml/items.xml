@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+
+  <Item
+	  name="suicidebooth" 
+	  identifier="suicidebooth"
+	  scale="0.4" 
+	  maxstacksize="1" 
+	  category="medical" 
+	  isshootable="true"
+	  linkable="false"
+	  disableitemusagewhenselected="true"
+	  damagedbyexplosions="true"
+	  explosiondamagemultiplier="0.2">
+    <Body width="416" height="192" density="40" />
+	
+    <Deconstruct time="30">
+      <Item identifier="steel" />
+      <Item identifier="aluminium" />
+    </Deconstruct>
+	
+    <Fabricate suitablefabricators="fabricator" requiredtime="42">
+      <RequiredSkill identifier="mechanical" level="50" />
+      <RequiredItem identifier="fpgacircuit" />
+      <RequiredItem identifier="plastic" amount="2" />
+      <RequiredItem identifier="steel" amount="3" />
+      <RequiredItem identifier="aluminium" amount="3" />
+    </Fabricate>
+	
+    <InventoryIcon 
+		texture="%ModDir%/Images/suicidebooth.png" 
+		sourcerect="0,0,230,416" origin="0.5,0.5" />
+	
+	<!-- Booth -->
+    <sprite
+		texture="%ModDir%/Images/suicidebooth.png" 
+		sourcerect="0,0,230,416" origin="0.5,0.5" depth="0.56"
+		premultiplyalpha="false"/>
+
+    <Repairable
+		selectkey="Action"
+		header="mechanicalrepairsheader"
+		deteriorationspeed="0.10"
+		mindeteriorationdelay="60"
+		maxdeteriorationdelay="120"
+		RepairThreshold="80"
+		fixDurationHighSkill="7"
+		fixDurationLowSkill="40"
+		msg="ItemMsgRepairWrench"
+		hudpriority="10">
+		<GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.1,0.27" style="ItemUI"/>
+		<RequiredSkill identifier="mechanical" level="35" />
+		<RequiredItem items="wrench" type="Equipped" />
+		<StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand" AllowWhenBroken="true">
+        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
+        <Affliction identifier="lacerations" strength="5" />
+        <Affliction identifier="stun" strength="4" />
+      </StatusEffect>
+    </Repairable>
+	
+	<ItemContainer 
+		canbeselected="false"
+		capacity="1"
+		maxstacksize="1" 
+		hideitems="true" 
+		hidehud="false">
+		<Containable items="randomizer" />
+	</ItemContainer>
+	
+	<!-- power consumption code needed, IDK how to do and balance that shit -->
+    <Controller
+		allowingameediting="false"
+		UserPos="0,-300"
+		direction="Right"
+		hidehud="true"
+		canbeselected="true"
+		selectkey="Select"
+		drawuserbehind="true"
+		AllowSelectingWhenSelectedByBot="true"
+		AllowWhenBroken="false">
+		
+		<limbposition limb="Head" position="100,-200" allowusinglimb="false" />
+		<limbposition limb="Torso" position="100,-200" allowusinglimb="false" />
+		<limbposition limb="Waist" position="100,-200" allowusinglimb="false" />
+		<limbposition limb="RightFoot" position="100,-200" allowusinglimb="false" />
+		<limbposition limb="LeftFoot" position="100,-200" allowusinglimb="false" />
+        <limbposition limb="RightHand" position="100,-200" allowusinglimb="false" />
+        <limbposition limb="LeftHand" position="100,-200" allowusinglimb="false" />
+		<RequiredItem items="deepdivinglarge" type="Picked" requireempty="true" />
+
+		<LightComponent
+			allowingameediting="false"
+			LightColor="0,0,0,0"
+			range="0"
+			powerconsumption="500">
+
+			<StatusEffect
+				type="OnActive"
+				target="This"
+				tags="hasPower"
+				duration="0.1"/>
+		</LightComponent>
+		
+		<!-- spawn a random item
+			to pick an outcome(statuseffect) 
+			fucking hate that I have to resort to shit like this 
+			xml is ass-->
+			<StatusEffect
+				type="OnActive"
+				target="This"
+				conditionalComparison="and"
+				CheckConditionalAlways="true"
+				spawnItemRandomly="true">
+				<Conditional HasStatusTag="hasPower" />
+				
+				<Spawnitem identifier="sb_r1" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
+
+
+			</StatusEffect>
+		
+			<!-- fast -->
+		
+		<!-- decapitate -->
+		<StatusEffect
+			target="This,Character"
+			targetlimbs="Head"
+			severlimbsprobability="1000"
+			CheckConditionalAlways="true"
+			breaklimb="true">
+			<Conditional HasTag="sb_r1" TargetContainedItem="true"/>
+			
+			<Affliction identifier="miracleworker" amount="-100" />
+			<Breaklimb />
+			<Explosion range="1" decal="blood" decalsize="5" flashrange="0" stun="0" force="2" flames="false" smoke="false" shockwave="false" sparks="false" underwaterbubble="false" ignorecover="true" camerashake="0" camerashakerange="0" screencolor="0,0,0,0" screencolorrange="0" screencolorduration="0"/>	
+			<ParticleEmitter particle="blood" copyentityangle="true" anglemin="0" anglemax="0" particlespersecond="10" velocitymin="65" velocitymax="220" scalemin="1.5" scalemax="2.8" />	
+		</StatusEffect>
+		
+		<!-- dismember -->
+		<StatusEffect
+			target="This,AllLimbs"
+			disabledeltatime="true"
+			severlimbsprobability="1"
+			CheckConditionalAlways="true">
+			<Conditional HasTag="sb_r2" TargetContainedItem="true"/>
+			
+			<Affliction identifier="miracleworker" amount="-100" />
+			<ParticleEmitter particle="blood" copyentityangle="true" anglemin="0" anglemax="0" particlespersecond="20" velocitymin="65" velocitymax="220" scalemin="1.5" scalemax="2.8" />
+			<Explosion range="1" decal="blood" decalsize="5" flashrange="0" stun="0" force="2" flames="false" smoke="false" shockwave="false" sparks="false" underwaterbubble="false" ignorecover="true" camerashake="0" camerashakerange="0" screencolor="0,0,0,0" screencolorrange="0" screencolorduration="0"/>		
+		</StatusEffect>
+		
+		<!-- burn -->
+		<StatusEffect
+			target="This,AllLimbs"
+			disabledeltatime="true"
+			conditionalComparison="And">
+			<Conditional HasTag="sb_r3" TargetContainedItem="true"/>
+			
+			<Affliction identifier="miracleworker" amount="-100" />
+			<Affliction identifier="burn" amount="1000" />
+		</StatusEffect>				
+		
+		<!-- acid burn -->
+		<StatusEffect
+			target="This,AllLimbs"
+			disabledeltatime="true"
+			conditionalComparison="And">
+			<Conditional HasTag="sb_r4" TargetContainedItem="true"/>
+			
+			<Affliction identifier="miracleworker" amount="-100" />
+			<Affliction identifier="acidburn" amount="1000" />
+		</StatusEffect>		
+		
+		<!-- instant overdose -->
+		<StatusEffect
+			target="This,AllLimbs"
+			disabledeltatime="true"
+			conditionalComparison="And">
+			<Conditional HasTag="sb_r5" TargetContainedItem="true"/>
+			
+			<Affliction identifier="miracleworker" amount="-100" />
+			<Affliction identifier="opiateoverdose" amount="1000" />
+		</StatusEffect>		
+		
+		<!-- very hard punch -->
+		<StatusEffect
+			target="This,Character"
+			targetlimbs="Head,Torso"
+			disabledeltatime="true"
+			conditionalComparison="And">
+			<Conditional HasTag="sb_r6" TargetContainedItem="true"/>
+			
+			<Affliction identifier="miracleworker" amount="-100" />
+			<Affliction identifier="internaldamage" amount="1000" />
+			<Affliction identifier="organdamage" amount="1000" />
+			<Affliction identifier="blunttrauma" amount="1000" />
+		</StatusEffect>		
+		
+		<!-- lacerations bloodloss -->
+		<StatusEffect
+			target="This,AllLimbs"
+			disabledeltatime="true"
+			conditionalComparison="And">
+			<Conditional HasTag="sb_r7" TargetContainedItem="true"/>
+			
+			<Affliction identifier="miracleworker" amount="-100" />
+			<Affliction identifier="lacerations" amount="1000" />
+			<Affliction identifier="bleedingnonstop" amount="1000" />
+		</StatusEffect>		
+		
+		<!-- scoop organs -->
+		<StatusEffect
+			target="This,Character"
+			targetlimbs="Torso"
+			disabledeltatime="true"
+			conditionalComparison="And">
+			<Conditional HasTag="sb_r8" TargetContainedItem="true"/>
+			
+			<Affliction identifier="miracleworker" amount="-100" />
+			<Affliction identifier="lacerations" amount="1000" />
+			<Affliction identifier="organdamage" amount="1000" />
+		</StatusEffect>
+		
+		
+			<!-- slow -->
+		
+		
+    </Controller>
+	
+    <ConnectionPanel 
+		selectkey="Action" 
+		canbeselected="true" 
+		msg="ItemMsgRewireScrewdriver" 
+		hudpriority="10">
+      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+      <RequiredItem items="screwdriver" type="Equipped" />
+      <input name="power_in" displayname="connection.powerin" />
+	  <output name="condition_out" displayname="connection.conditionout" />
+      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
+    </ConnectionPanel>
+	
+	<Holdable 
+		selectkey="Action"
+		pickkey="Use"
+		slots="RightHand+LeftHand" 
+		PickingTime="5"
+		msg="itemmsgdetachcrowbar"
+		aimpos="0,0"
+		handle1="0,0"
+		attachable="true"
+		aimable="true">
+		<RequiredItem items="crowbar" type="Equipped" />
+	</Holdable>
+
+  </Item>
+
+	<!-- here goes the xml retardation -->
+	<Item
+		identifier="sb_r1"
+		noninteractable="true"
+		hideinmenus="true"
+		tags="sb_r1,randomizer">
+		<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="0,0,1,1" origin="0.5,0.5" />
+		<Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="0,0,1,1" depth="0.6" origin="0.5,0.5" />
+		<ItemComponent>
+			<StatusEffect 
+				type="Always" 
+				target="This" 
+				disabledeltatime="true"
+				delay="1">
+				<Remove />
+			</StatusEffect>
+		</ItemComponent>
+	</Item>	
+
+	<Item
+		identifier="sb_r2"
+		noninteractable="true"
+		hideinmenus="true"
+		tags="sb_r2,randomizer">
+		<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="0,0,1,1" origin="0.5,0.5" />
+		<Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="0,0,1,1" depth="0.6" origin="0.5,0.5" />
+		<ItemComponent>
+			<StatusEffect 
+				type="Always" 
+				target="This" 
+				disabledeltatime="true"
+				delay="1">
+				<Remove />
+			</StatusEffect>
+		</ItemComponent>
+	</Item>	
+	
+	<Item
+		identifier="sb_r3"
+		noninteractable="true"
+		hideinmenus="true"
+		tags="sb_r3,randomizer">
+		<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="0,0,1,1" origin="0.5,0.5" />
+		<Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="0,0,1,1" depth="0.6" origin="0.5,0.5" />
+		<ItemComponent>
+			<StatusEffect 
+				type="Always" 
+				target="This" 
+				disabledeltatime="true"
+				delay="1">
+				<Remove />
+			</StatusEffect>
+		</ItemComponent>
+	</Item>	
+	
+	<Item
+		identifier="sb_r4"
+		noninteractable="true"
+		hideinmenus="true"
+		tags="sb_r4,randomizer">
+		<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="0,0,1,1" origin="0.5,0.5" />
+		<Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="0,0,1,1" depth="0.6" origin="0.5,0.5" />
+		<ItemComponent>
+			<StatusEffect 
+				type="Always" 
+				target="This" 
+				disabledeltatime="true"
+				delay="1">
+				<Remove />
+			</StatusEffect>
+		</ItemComponent>
+	</Item>	
+	
+	<Item
+		identifier="sb_r5"
+		noninteractable="true"
+		hideinmenus="true"
+		tags="sb_r5,randomizer">
+		<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="0,0,1,1" origin="0.5,0.5" />
+		<Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="0,0,1,1" depth="0.6" origin="0.5,0.5" />
+		<ItemComponent>
+			<StatusEffect 
+				type="Always" 
+				target="This" 
+				disabledeltatime="true"
+				delay="1">
+				<Remove />
+			</StatusEffect>
+		</ItemComponent>
+	</Item>	
+	
+	<Item
+		identifier="sb_r6"
+		noninteractable="true"
+		hideinmenus="true"
+		tags="sb_r6,randomizer">
+		<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="0,0,1,1" origin="0.5,0.5" />
+		<Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="0,0,1,1" depth="0.6" origin="0.5,0.5" />
+		<ItemComponent>
+			<StatusEffect 
+				type="Always" 
+				target="This" 
+				disabledeltatime="true"
+				delay="1">
+				<Remove />
+			</StatusEffect>
+		</ItemComponent>
+	</Item>	
+	
+	<Item
+		identifier="sb_r7"
+		noninteractable="true"
+		hideinmenus="true"
+		tags="sb_r7,randomizer">
+		<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="0,0,1,1" origin="0.5,0.5" />
+		<Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="0,0,1,1" depth="0.6" origin="0.5,0.5" />
+		<ItemComponent>
+			<StatusEffect 
+				type="Always" 
+				target="This" 
+				disabledeltatime="true"
+				delay="1">
+				<Remove />
+			</StatusEffect>
+		</ItemComponent>
+	</Item>	
+	
+	<Item
+		identifier="sb_r8"
+		noninteractable="true"
+		hideinmenus="true"
+		tags="sb_r8,randomizer">
+		<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="0,0,1,1" origin="0.5,0.5" />
+		<Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="0,0,1,1" depth="0.6" origin="0.5,0.5" />
+		<ItemComponent>
+			<StatusEffect 
+				type="Always" 
+				target="This" 
+				disabledeltatime="true"
+				delay="1">
+				<Remove />
+			</StatusEffect>
+		</ItemComponent>
+	</Item>
+
+
+
+</Items>
