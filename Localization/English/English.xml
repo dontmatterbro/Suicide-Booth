@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <infotexts language="English" nowhitespace="false" translatedname="English">
 
+	<afflictioncauseofdeath.suicided>Used the booth.</afflictioncauseofdeath.suicided>
+	<afflictioncauseofdeathself.suicided>You used the booth.</afflictioncauseofdeathself.suicided>
+	
+	
+	
 </infotexts>

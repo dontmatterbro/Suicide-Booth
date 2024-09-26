@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <contentpackage name="Suicide Booth" modversion="1.0.0" corepackage="False" gameversion="1.5.9.2">
 	<Item file="%ModDir%/Xml/items.xml" />
+	<Afflictions file="%ModDir%/Xml/afflictions.xml" />
 	<Text file="%ModDir%/Localization/English/English.xml" />
 </contentpackage>

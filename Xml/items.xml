@@ -114,8 +114,13 @@
 				<Conditional HasStatusTag="hasPower" />
 				
 				<Spawnitem identifier="sb_r1" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
-
-
+				<Spawnitem identifier="sb_r2" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
+				<Spawnitem identifier="sb_r3" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
+				<Spawnitem identifier="sb_r4" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
+				<Spawnitem identifier="sb_r5" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
+				<Spawnitem identifier="sb_r6" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
+				<Spawnitem identifier="sb_r7" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
+				<Spawnitem identifier="sb_r8" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
 			</StatusEffect>
 		
 			<!-- fast -->
@@ -124,28 +129,22 @@
 		<StatusEffect
 			target="This,Character"
 			targetlimbs="Head"
-			severlimbsprobability="1000"
-			CheckConditionalAlways="true"
-			breaklimb="true">
+			CheckConditionalAlways="true">
 			<Conditional HasTag="sb_r1" TargetContainedItem="true"/>
 			
 			<Affliction identifier="miracleworker" amount="-100" />
-			<Breaklimb />
-			<Explosion range="1" decal="blood" decalsize="5" flashrange="0" stun="0" force="2" flames="false" smoke="false" shockwave="false" sparks="false" underwaterbubble="false" ignorecover="true" camerashake="0" camerashakerange="0" screencolor="0,0,0,0" screencolorrange="0" screencolorduration="0"/>	
-			<ParticleEmitter particle="blood" copyentityangle="true" anglemin="0" anglemax="0" particlespersecond="10" velocitymin="65" velocitymax="220" scalemin="1.5" scalemax="2.8" />	
+			<Affliction identifier="sb_decapitated" amount="100" />
 		</StatusEffect>
 		
 		<!-- dismember -->
 		<StatusEffect
-			target="This,AllLimbs"
+			target="This,Character"
 			disabledeltatime="true"
-			severlimbsprobability="1"
 			CheckConditionalAlways="true">
 			<Conditional HasTag="sb_r2" TargetContainedItem="true"/>
 			
 			<Affliction identifier="miracleworker" amount="-100" />
-			<ParticleEmitter particle="blood" copyentityangle="true" anglemin="0" anglemax="0" particlespersecond="20" velocitymin="65" velocitymax="220" scalemin="1.5" scalemax="2.8" />
-			<Explosion range="1" decal="blood" decalsize="5" flashrange="0" stun="0" force="2" flames="false" smoke="false" shockwave="false" sparks="false" underwaterbubble="false" ignorecover="true" camerashake="0" camerashakerange="0" screencolor="0,0,0,0" screencolorrange="0" screencolorduration="0"/>		
+			<Affliction identifier="sb_dismembered" amount="100" />
 		</StatusEffect>
 		
 		<!-- burn -->
