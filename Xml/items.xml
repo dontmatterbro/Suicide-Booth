@@ -72,7 +72,7 @@
 		allowingameediting="false"
 		UserPos="0,-300"
 		direction="Right"
-		hidehud="true"
+		hidehud="false"
 		canbeselected="true"
 		selectkey="Select"
 		drawuserbehind="true"
@@ -105,6 +105,8 @@
 			to pick an outcome(statuseffect) 
 			fucking hate that I have to resort to shit like this 
 			xml is ass-->
+			
+			<!-- slow horrible -->
 			<StatusEffect
 				type="OnActive"
 				target="This"
@@ -112,15 +114,34 @@
 				CheckConditionalAlways="true"
 				spawnItemRandomly="true">
 				<Conditional HasStatusTag="hasPower" />
+				<Conditional HasStatusTag="slowHorrible" />
+				<Conditional HasStatusTag="hasStart" />
 				
 				<Spawnitem identifier="sb_r1" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
 				<Spawnitem identifier="sb_r2" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
 				<Spawnitem identifier="sb_r3" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
 				<Spawnitem identifier="sb_r4" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
-				<Spawnitem identifier="sb_r5" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
 				<Spawnitem identifier="sb_r6" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
 				<Spawnitem identifier="sb_r7" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
-				<Spawnitem identifier="sb_r8" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
+				<Spawnitem identifier="sb_r8" SpawnIfCantBeContained="false" spawnposition="ThisInventory" /> 
+				<Spawnitem identifier="sb_r9" SpawnIfCantBeContained="false" spawnposition="ThisInventory" /> 	
+				<Spawnitem identifier="sb_r11" SpawnIfCantBeContained="false" spawnposition="ThisInventory" /> 
+				<Spawnitem identifier="sb_r12" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
+			</StatusEffect>			
+			
+			<!-- fast painless -->
+			<StatusEffect
+				type="OnActive"
+				target="This"
+				conditionalComparison="and"
+				CheckConditionalAlways="true"
+				spawnItemRandomly="true">
+				<Conditional HasStatusTag="hasPower" />
+				<Conditional HasStatusTag="fastPainless" />
+				<Conditional HasStatusTag="hasStart" />
+				
+				<Spawnitem identifier="sb_r5" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
+				<Spawnitem identifier="sb_r10" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
 			</StatusEffect>
 		
 			<!-- fast -->
@@ -155,7 +176,9 @@
 			<Conditional HasTag="sb_r3" TargetContainedItem="true"/>
 			
 			<Affliction identifier="miracleworker" amount="-100" />
-			<Affliction identifier="burn" amount="1000" />
+			<Affliction identifier="sb_burn" amount="100" />
+			
+			<Sound file="%ModDir%/Sounds/burning_male_02.ogg" volume="1" range="500" />
 		</StatusEffect>				
 		
 		<!-- acid burn -->
@@ -167,7 +190,7 @@
 			
 			<Affliction identifier="miracleworker" amount="-100" />
 			<Affliction identifier="acidburn" amount="1000" />
-		</StatusEffect>		
+		</StatusEffect>	
 		
 		<!-- instant overdose -->
 		<StatusEffect
@@ -178,7 +201,7 @@
 			
 			<Affliction identifier="miracleworker" amount="-100" />
 			<Affliction identifier="opiateoverdose" amount="1000" />
-		</StatusEffect>		
+		</StatusEffect>	
 		
 		<!-- very hard punch -->
 		<StatusEffect
@@ -217,11 +240,106 @@
 			<Affliction identifier="miracleworker" amount="-100" />
 			<Affliction identifier="lacerations" amount="1000" />
 			<Affliction identifier="organdamage" amount="1000" />
+		</StatusEffect>		
+		
+		<!-- claw skin -->
+		<StatusEffect
+			target="This,AllLimbs"
+			disabledeltatime="true"
+			conditionalComparison="And">
+			<Conditional HasTag="sb_r9" TargetContainedItem="true"/>
+			
+			<Affliction identifier="miracleworker" amount="-100" />
+			<Affliction identifier="lacerations" amount="1000" />
+			<Affliction identifier="bitewounds" amount="1000" />
+		</StatusEffect>		
+		
+		<!-- shoot head -->
+		<StatusEffect
+			target="This,Character"
+			targetlimbs="Head"
+			disabledeltatime="true"
+			conditionalComparison="And">
+			<Conditional HasTag="sb_r10" TargetContainedItem="true"/>
+			
+			<Affliction identifier="miracleworker" amount="-100" />
+			<Affliction identifier="gunshotwound" amount="1000" />
+		</StatusEffect>		
+		
+		<!-- crush -->
+		<StatusEffect
+			target="This,Character"
+			targetlimbs="Head"
+			disabledeltatime="true"
+			conditionalComparison="And">
+			<Conditional HasTag="sb_r11" TargetContainedItem="true"/>
+			
+			<Affliction identifier="miracleworker" amount="-100" />
+			<Affliction identifier="pressure" amount="1000" />
+		</StatusEffect>		
+		
+		<!-- lmao -->
+		<StatusEffect
+			target="This,Character"
+			targetlimbs="Head"
+			disabledeltatime="true"
+			conditionalComparison="And">
+			<Conditional HasTag="sb_r12" TargetContainedItem="true"/>
+			
+			<Affliction identifier="miracleworker" amount="-100" />
+			<Affliction identifier="sb_worsethandeath" amount="1000" />
+			<Affliction identifier="stun" amount="3" />
 		</StatusEffect>
 		
-		
-			<!-- slow -->
-		
+		<!-- choice menu -->
+		<CustomInterface
+			canbeselected="true" 
+			selectkey="Select"
+			drawhudwhenequipped="true" 
+			allowuioverlap="true">
+			<GuiFrame 
+				relativesize="0.16,0.15" 
+				anchor="Center" 
+				pivot="Center" 
+				relativeoffset="0.006,-0.05" 
+				style="ItemUI" />
+			
+				<TickBox 
+					text="sb.slowhorrible">
+					<StatusEffect
+						type="OnUse"
+						targettype="This" 
+						tags="slowHorrible"
+						duration="0.1"/>
+					<StatusEffect
+						type="OnSecondaryUse" 
+						targettype="This" />
+				</TickBox>
+				
+				<TickBox 
+					text="sb.fastpainless">
+					<StatusEffect
+						type="OnUse" 
+						targettype="This" 
+						tags="fastPainless"
+						duration="0.1"/>
+					<StatusEffect
+						type="OnSecondaryUse" 
+						targettype="This" />
+				</TickBox>
+				
+				<Button 
+					text="sb.starttext" 
+					connection="signal_out1">
+					<StatusEffect
+						type="OnUse" 
+						target="This" 
+						stackable="false" 	
+						tags="hasStart"
+						duration="0.1"/>
+				</Button>
+				
+		</CustomInterface>
 		
     </Controller>
 	
@@ -395,8 +513,78 @@
 				<Remove />
 			</StatusEffect>
 		</ItemComponent>
+	</Item>	
+	
+	<Item
+		identifier="sb_r9"
+		noninteractable="true"
+		hideinmenus="true"
+		tags="sb_r9,randomizer">
+		<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="0,0,1,1" origin="0.5,0.5" />
+		<Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="0,0,1,1" depth="0.6" origin="0.5,0.5" />
+		<ItemComponent>
+			<StatusEffect 
+				type="Always" 
+				target="This" 
+				disabledeltatime="true"
+				delay="1">
+				<Remove />
+			</StatusEffect>
+		</ItemComponent>
 	</Item>
-
-
+	
+	<Item
+		identifier="sb_r10"
+		noninteractable="true"
+		hideinmenus="true"
+		tags="sb_r10,randomizer">
+		<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="0,0,1,1" origin="0.5,0.5" />
+		<Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="0,0,1,1" depth="0.6" origin="0.5,0.5" />
+		<ItemComponent>
+			<StatusEffect 
+				type="Always" 
+				target="This" 
+				disabledeltatime="true"
+				delay="1">
+				<Remove />
+			</StatusEffect>
+		</ItemComponent>
+	</Item>	
+	
+	<Item
+		identifier="sb_r11"
+		noninteractable="true"
+		hideinmenus="true"
+		tags="sb_r11,randomizer">
+		<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="0,0,1,1" origin="0.5,0.5" />
+		<Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="0,0,1,1" depth="0.6" origin="0.5,0.5" />
+		<ItemComponent>
+			<StatusEffect 
+				type="Always" 
+				target="This" 
+				disabledeltatime="true"
+				delay="1">
+				<Remove />
+			</StatusEffect>
+		</ItemComponent>
+	</Item>	
+	
+	<Item
+		identifier="sb_r12"
+		noninteractable="true"
+		hideinmenus="true"
+		tags="sb_r12,randomizer">
+		<InventoryIcon texture="Content/Items/InventoryIconAtlas.png" sourcerect="0,0,1,1" origin="0.5,0.5" />
+		<Sprite texture="Content/Items/Medical/Medicines.png" sourcerect="0,0,1,1" depth="0.6" origin="0.5,0.5" />
+		<ItemComponent>
+			<StatusEffect 
+				type="Always" 
+				target="This" 
+				disabledeltatime="true"
+				delay="1">
+				<Remove />
+			</StatusEffect>
+		</ItemComponent>
+	</Item>
 
 </Items>

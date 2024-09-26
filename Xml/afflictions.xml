@@ -5,7 +5,9 @@
 		identifier="sb_decapitated" 
 		healableinmedicalclinic="false" 
 		limbspecific="false" 
-		indicatorlimb="Head" 
+		indicatorlimb="Head"
+		showiconthreshold="1000"
+		showinhealthscannerthreshold="1000"
 		maxstrength="1">
 		<Effect 
 			minstrength="0" 
@@ -27,6 +29,8 @@
 		healableinmedicalclinic="false" 
 		limbspecific="false" 
 		indicatorlimb="Head" 
+		showiconthreshold="1000"
+		showinhealthscannerthreshold="1000"
 		maxstrength="1">
 		<Effect 
 			minstrength="0" 
@@ -40,13 +44,36 @@
 				<Affliction identifier="sb_death" amount="100" />
 			</StatusEffect>
 		</Effect>
+	</Affliction>	
+	
+	<Affliction 
+		identifier="sb_burn" 
+		healableinmedicalclinic="false" 
+		limbspecific="false" 
+		indicatorlimb="Head" 
+		showiconthreshold="1000"
+		showinhealthscannerthreshold="1000"
+		maxstrength="1">
+		<Effect 
+			minstrength="0" 
+			maxstrength="1">
+			<StatusEffect
+				target="AllLimbs"
+				delay="0.5">
+				<Affliction identifier="miracleworker" amount="-100" />
+				<Affliction identifier="burn" amount="1000" />
+				<Affliction identifier="sb_death" amount="100" />
+			</StatusEffect>
+		</Effect>
 	</Affliction>
 	
 	<Affliction 
 		identifier="sb_death" 
 		healableinmedicalclinic="false" 
 		limbspecific="false" 
-		indicatorlimb="Head" 
+		indicatorlimb="Head"
+		showiconthreshold="1000"
+		showinhealthscannerthreshold="1000"
 		maxstrength="1"
 		causeofdeathdescription="afflictioncauseofdeath.suicided" 
 		selfcauseofdeathdescription="afflictioncauseofdeathself.suicided">
@@ -56,6 +83,37 @@
 			multiplybymaxvitality="true"
 			minvitalitydecrease="10"
 			maxvitalitydecrease="10">	
+		</Effect>
+	</Affliction>	
+	
+	<Affliction 
+		identifier="sb_worsethandeath" 
+		healableinmedicalclinic="false" 
+		limbspecific="false"
+		indicatorlimb="Head"
+		showiconthreshold="1000"
+		showinhealthscannerthreshold="1000"
+		maxstrength="1"
+		causeofdeathdescription="afflictioncauseofdeath.suicided" 
+		selfcauseofdeathdescription="afflictioncauseofdeathself.suicided">
+		<Effect 
+			minstrength="0" 
+			maxstrength="1"			
+			multiplybymaxvitality="true"
+			minvitalitydecrease="0.6"
+			maxvitalitydecrease="0.6"
+			minbodytint="255,0,255,100"
+			maxbodytint="255,0,255,100">
+			<StatusEffect
+				target="Character"
+				disabledeltatime="true"
+				interval="2">
+				<Affliction identifier="miracleworker" amount="-100" />
+				<Affliction identifier="invertcontrols" amount="100" />
+				<Affliction identifier="spaceherpes" amount="100" />
+				<Affliction identifier="psychosis" amount="100" />
+				<Affliction identifier="opiateaddiction" amount="100" />
+			</StatusEffect>
 		</Effect>
 	</Affliction>
 
