@@ -1,112 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Items>
 
-  <Item
-	  name="suicidebooth" 
-	  identifier="suicidebooth"
-	  scale="0.4" 
-	  maxstacksize="1" 
-	  category="medical" 
-	  isshootable="true"
-	  linkable="false"
-	  disableitemusagewhenselected="true"
-	  damagedbyexplosions="true"
-	  explosiondamagemultiplier="0.2">
-    <Body width="416" height="192" density="40" />
-	
-    <Deconstruct time="30">
-      <Item identifier="steel" />
-      <Item identifier="aluminium" />
-    </Deconstruct>
-	
-    <Fabricate suitablefabricators="fabricator" requiredtime="42">
-      <RequiredSkill identifier="mechanical" level="50" />
-      <RequiredItem identifier="fpgacircuit" />
-      <RequiredItem identifier="plastic" amount="2" />
-      <RequiredItem identifier="steel" amount="3" />
-      <RequiredItem identifier="aluminium" amount="3" />
-    </Fabricate>
-	
-    <InventoryIcon 
-		texture="%ModDir%/Images/suicidebooth.png" 
-		sourcerect="0,0,230,416" origin="0.5,0.5" />
-	
-	<!-- Booth -->
-    <sprite
-		texture="%ModDir%/Images/suicidebooth.png" 
-		sourcerect="0,0,230,416" origin="0.5,0.5" depth="0.56"
-		premultiplyalpha="false"/>
-
-    <Repairable
-		selectkey="Action"
-		header="mechanicalrepairsheader"
-		deteriorationspeed="0.10"
-		mindeteriorationdelay="60"
-		maxdeteriorationdelay="120"
-		RepairThreshold="80"
-		fixDurationHighSkill="7"
-		fixDurationLowSkill="40"
-		msg="ItemMsgRepairWrench"
-		hudpriority="10">
-		<GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.1,0.27" style="ItemUI"/>
-		<RequiredSkill identifier="mechanical" level="35" />
-		<RequiredItem items="wrench" type="Equipped" />
-		<StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand" AllowWhenBroken="true">
-        <Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
-        <Affliction identifier="lacerations" strength="5" />
-        <Affliction identifier="stun" strength="4" />
-      </StatusEffect>
-    </Repairable>
-	
-	<ItemContainer 
-		canbeselected="false"
-		capacity="1"
-		maxstacksize="1" 
-		hideitems="true" 
-		hidehud="false">
-		<Containable items="randomizer" />
-	</ItemContainer>
-	
-	<!-- power consumption code needed, IDK how to do and balance that shit -->
-    <Controller
-		allowingameediting="false"
-		UserPos="0,-300"
-		direction="Right"
-		hidehud="false"
-		canbeselected="true"
-		selectkey="Select"
-		drawuserbehind="true"
-		AllowSelectingWhenSelectedByBot="true"
-		AllowWhenBroken="false">
+	<!-- the singular visible item of the mod -->
+	<Item
+		  identifier="suicidebooth"
+		  scale="0.4" 
+		  maxstacksize="1"
+		  category="medical"
+		  isshootable="true"
+		  linkable="false"
+		  disableitemusagewhenselected="true"
+		  damagedbyexplosions="true"
+		  explosiondamagemultiplier="0.2">
+		<Body width="416" height="192" density="40" />
 		
-		<limbposition limb="Head" position="100,-200" allowusinglimb="false" />
-		<limbposition limb="Torso" position="100,-200" allowusinglimb="false" />
-		<limbposition limb="Waist" position="100,-200" allowusinglimb="false" />
-		<limbposition limb="RightFoot" position="100,-200" allowusinglimb="false" />
-		<limbposition limb="LeftFoot" position="100,-200" allowusinglimb="false" />
-        <limbposition limb="RightHand" position="100,-200" allowusinglimb="false" />
-        <limbposition limb="LeftHand" position="100,-200" allowusinglimb="false" />
-		<RequiredItem items="deepdivinglarge" type="Picked" requireempty="true" />
-
-		<LightComponent
+		<Deconstruct time="30">
+		  <Item identifier="steel" />
+		  <Item identifier="aluminium" />
+		</Deconstruct>
+		
+		<Fabricate suitablefabricators="fabricator" requiredtime="42">
+		  <RequiredSkill identifier="mechanical" level="50" />
+		  <RequiredItem identifier="fpgacircuit" />
+		  <RequiredItem identifier="plastic" amount="2" />
+		  <RequiredItem identifier="steel" amount="3" />
+		  <RequiredItem identifier="aluminium" amount="3" />
+		</Fabricate>
+		
+		<InventoryIcon
+			texture="%ModDir%/Images/suicidebooth.png" 
+			sourcerect="0,0,230,416" origin="0.5,0.5" />
+		
+		<!-- Booth -->
+		<sprite
+			texture="%ModDir%/Images/suicidebooth.png" 
+			sourcerect="0,0,230,416" origin="0.5,0.5" depth="0.56"
+			premultiplyalpha="false"/>
+		
+		<!-- Container componenent to randomize results
+			by checking spawning items -->
+		<ItemContainer 
+			canbeselected="false"
+			capacity="1"
+			maxstacksize="1" 
+			hideitems="true" 
+			hidehud="false">
+			<Containable items="randomizer" />
+		</ItemContainer>
+		
+		<!-- Controller for the main booth function -->
+		<Controller
 			allowingameediting="false"
-			LightColor="0,0,0,0"
-			range="0"
-			powerconsumption="500">
-
-			<StatusEffect
-				type="OnActive"
-				target="This"
-				tags="hasPower"
-				duration="0.1"/>
-		</LightComponent>
-		
-		<!-- spawn a random item
-			to pick an outcome(statuseffect) 
-			fucking hate that I have to resort to shit like this 
-			xml is ass-->
+			UserPos="0,-300"
+			direction="Right"
+			hidehud="false"
+			canbeselected="true"
+			selectkey="Select"
+			drawuserbehind="true"
+			msg="sb.ItemMsgEnterBooth"
+			AllowSelectingWhenSelectedByBot="true"
+			AllowWhenBroken="false">
 			
-			<!-- slow horrible -->
+			<limbposition limb="Head" position="100,-200" allowusinglimb="false" />
+			<limbposition limb="Torso" position="100,-200" allowusinglimb="false" />
+			<limbposition limb="Waist" position="100,-200" allowusinglimb="false" />
+			<limbposition limb="RightFoot" position="100,-200" allowusinglimb="false" />
+			<limbposition limb="LeftFoot" position="100,-200" allowusinglimb="false" />
+			<limbposition limb="RightHand" position="100,-200" allowusinglimb="false" />
+			<limbposition limb="LeftHand" position="100,-200" allowusinglimb="false" />
+			<RequiredItem items="deepdivinglarge" type="Picked" requireempty="true" />
+
+			<!-- Power requirement -->
+			<LightComponent
+				allowingameediting="false"
+				LightColor="0,0,0,0"
+				range="0"
+				powerconsumption="500">
+
+				<StatusEffect
+					type="OnActive"
+					target="This"
+					tags="hasPower"
+					duration="0.1"/>
+			</LightComponent>
+			
+			<!-- spawn a random item
+				to pick an outcome(statuseffect) 
+				fucking hate that I have to resort to shit like this 
+				xml is ass-->
+				
+				<!-- slow horrible item spawn -->
 			<StatusEffect
 				type="OnActive"
 				target="This"
@@ -116,7 +99,7 @@
 				<Conditional HasStatusTag="hasPower" />
 				<Conditional HasStatusTag="slowHorrible" />
 				<Conditional HasStatusTag="hasStart" />
-				
+					
 				<Spawnitem identifier="sb_r1" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
 				<Spawnitem identifier="sb_r2" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
 				<Spawnitem identifier="sb_r3" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
@@ -125,11 +108,10 @@
 				<Spawnitem identifier="sb_r7" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
 				<Spawnitem identifier="sb_r8" SpawnIfCantBeContained="false" spawnposition="ThisInventory" /> 
 				<Spawnitem identifier="sb_r9" SpawnIfCantBeContained="false" spawnposition="ThisInventory" /> 	
-				<Spawnitem identifier="sb_r11" SpawnIfCantBeContained="false" spawnposition="ThisInventory" /> 
 				<Spawnitem identifier="sb_r12" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
 			</StatusEffect>			
-			
-			<!-- fast painless -->
+				
+				<!-- fast painless item spawn -->
 			<StatusEffect
 				type="OnActive"
 				target="This"
@@ -139,238 +121,251 @@
 				<Conditional HasStatusTag="hasPower" />
 				<Conditional HasStatusTag="fastPainless" />
 				<Conditional HasStatusTag="hasStart" />
-				
+					
 				<Spawnitem identifier="sb_r5" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
 				<Spawnitem identifier="sb_r10" SpawnIfCantBeContained="false" spawnposition="ThisInventory" />
+				<Spawnitem identifier="sb_r11" SpawnIfCantBeContained="false" spawnposition="ThisInventory" /> 
 			</StatusEffect>
-		
-			<!-- fast -->
-		
-		<!-- decapitate -->
-		<StatusEffect
-			target="This,Character"
-			targetlimbs="Head"
-			CheckConditionalAlways="true">
-			<Conditional HasTag="sb_r1" TargetContainedItem="true"/>
 			
-			<Affliction identifier="miracleworker" amount="-100" />
-			<Affliction identifier="sb_decapitated" amount="100" />
-		</StatusEffect>
-		
-		<!-- dismember -->
-		<StatusEffect
-			target="This,Character"
-			disabledeltatime="true"
-			CheckConditionalAlways="true">
-			<Conditional HasTag="sb_r2" TargetContainedItem="true"/>
 			
-			<Affliction identifier="miracleworker" amount="-100" />
-			<Affliction identifier="sb_dismembered" amount="100" />
-		</StatusEffect>
-		
-		<!-- burn -->
-		<StatusEffect
-			target="This,AllLimbs"
-			disabledeltatime="true"
-			conditionalComparison="And">
-			<Conditional HasTag="sb_r3" TargetContainedItem="true"/>
+				<!-- fast painless effects -->
+			<!-- instant overdose -->
+			<StatusEffect
+				target="This,Character"
+				disabledeltatime="true"
+				conditionalComparison="And">
+				<Conditional HasTag="sb_r5" TargetContainedItem="true"/>
+				
+				<Affliction identifier="sb_overdose" amount="1000" />
+			</StatusEffect>	
+				
+			<!-- headshot -->
+			<StatusEffect
+				target="This,Character"
+				disabledeltatime="true"
+				conditionalComparison="And">
+				<Conditional HasTag="sb_r10" TargetContainedItem="true"/>
+				
+				<Affliction identifier="sb_headshot" amount="1000" />
+			</StatusEffect>	
+				
+			<!-- instant crush -->
+			<StatusEffect
+				target="This,Character"
+				disabledeltatime="true"
+				conditionalComparison="And">
+				<Conditional HasTag="sb_r11" TargetContainedItem="true"/>
+				
+				<Affliction identifier="sb_crush" amount="1000" />
+			</StatusEffect>	
+				
+				
+				<!-- slow horrible effects -->
+			<!-- decapitate -->
+			<StatusEffect
+				target="This,Character"
+				targetlimbs="Head"
+				CheckConditionalAlways="true">
+				<Conditional HasTag="sb_r1" TargetContainedItem="true"/>
+				
+				<Affliction identifier="sb_decapitated" amount="100" />
+			</StatusEffect>
 			
-			<Affliction identifier="miracleworker" amount="-100" />
-			<Affliction identifier="sb_burn" amount="100" />
+			<!-- dismember -->
+			<StatusEffect
+				target="This,Character"
+				disabledeltatime="true"
+				CheckConditionalAlways="true">
+				<Conditional HasTag="sb_r2" TargetContainedItem="true"/>
+				
+				<Affliction identifier="sb_dismembered" amount="100" />
+			</StatusEffect>
 			
-			<Sound file="%ModDir%/Sounds/burning_male_02.ogg" volume="1" range="500" />
-		</StatusEffect>				
-		
-		<!-- acid burn -->
-		<StatusEffect
-			target="This,AllLimbs"
-			disabledeltatime="true"
-			conditionalComparison="And">
-			<Conditional HasTag="sb_r4" TargetContainedItem="true"/>
+			<!-- burn -->
+			<StatusEffect
+				target="This,Character"
+				disabledeltatime="true"
+				conditionalComparison="And">
+				<Conditional HasTag="sb_r3" TargetContainedItem="true"/>
+				
+				<Affliction identifier="sb_burn" amount="100" />
+				
+				<Sound file="%ModDir%/Sounds/burning_male_02.ogg" volume="1" range="500" />
+			</StatusEffect>				
 			
-			<Affliction identifier="miracleworker" amount="-100" />
-			<Affliction identifier="acidburn" amount="1000" />
-		</StatusEffect>	
+			<!-- acid burn -->
+			<StatusEffect
+				target="This,Character"
+				disabledeltatime="true"
+				conditionalComparison="And">
+				<Conditional HasTag="sb_r4" TargetContainedItem="true"/>
+				
+				<Affliction identifier="sb_acidburn" amount="1000" />
+			</StatusEffect>	
 		
-		<!-- instant overdose -->
-		<StatusEffect
-			target="This,AllLimbs"
-			disabledeltatime="true"
-			conditionalComparison="And">
-			<Conditional HasTag="sb_r5" TargetContainedItem="true"/>
+			<!-- very hard punch -->
+			<StatusEffect
+				target="This,Character"
+				disabledeltatime="true"
+				conditionalComparison="And">
+				<Conditional HasTag="sb_r6" TargetContainedItem="true"/>
+				
+				<Affliction identifier="sb_punch" amount="1000" />
+			</StatusEffect>
 			
-			<Affliction identifier="miracleworker" amount="-100" />
-			<Affliction identifier="opiateoverdose" amount="1000" />
-		</StatusEffect>	
-		
-		<!-- very hard punch -->
-		<StatusEffect
-			target="This,Character"
-			targetlimbs="Head,Torso"
-			disabledeltatime="true"
-			conditionalComparison="And">
-			<Conditional HasTag="sb_r6" TargetContainedItem="true"/>
+			<!-- lacerations bloodloss -->
+			<StatusEffect
+				target="This,Character"
+				disabledeltatime="true"
+				conditionalComparison="And">
+				<Conditional HasTag="sb_r7" TargetContainedItem="true"/>
+				
+				<Affliction identifier="sb_laceration" amount="1000" />
+			</StatusEffect>		
 			
-			<Affliction identifier="miracleworker" amount="-100" />
-			<Affliction identifier="internaldamage" amount="1000" />
-			<Affliction identifier="organdamage" amount="1000" />
-			<Affliction identifier="blunttrauma" amount="1000" />
-		</StatusEffect>		
-		
-		<!-- lacerations bloodloss -->
-		<StatusEffect
-			target="This,AllLimbs"
-			disabledeltatime="true"
-			conditionalComparison="And">
-			<Conditional HasTag="sb_r7" TargetContainedItem="true"/>
+			<!-- scoop organs -->
+			<StatusEffect
+				target="This,Character"
+				targetlimbs="Torso"
+				disabledeltatime="true"
+				conditionalComparison="And">
+				<Conditional HasTag="sb_r8" TargetContainedItem="true"/>
+				
+				<Affliction identifier="sb_scoop" amount="1000" />
+			</StatusEffect>	
 			
-			<Affliction identifier="miracleworker" amount="-100" />
-			<Affliction identifier="lacerations" amount="1000" />
-			<Affliction identifier="bleedingnonstop" amount="1000" />
-		</StatusEffect>		
+			<!-- claw skin -->
+			<StatusEffect
+				target="This,Character"
+				disabledeltatime="true"
+				conditionalComparison="And">
+				<Conditional HasTag="sb_r9" TargetContainedItem="true"/>
+
+				<Affliction identifier="sb_claw" amount="1000" />
+			</StatusEffect>		
 		
-		<!-- scoop organs -->
-		<StatusEffect
-			target="This,Character"
-			targetlimbs="Torso"
-			disabledeltatime="true"
-			conditionalComparison="And">
-			<Conditional HasTag="sb_r8" TargetContainedItem="true"/>
+			<!-- lmao -->
+			<StatusEffect
+				target="This,Character"
+				targetlimbs="Head"
+				disabledeltatime="true"
+				conditionalComparison="And">
+				<Conditional HasTag="sb_r12" TargetContainedItem="true"/>
+				
+				<Affliction identifier="sb_worsethandeath" amount="1000" />
+				<Affliction identifier="sb_scream" amount="1000" />
+				<Affliction identifier="stun" amount="3" />
+			</StatusEffect>
 			
-			<Affliction identifier="miracleworker" amount="-100" />
-			<Affliction identifier="lacerations" amount="1000" />
-			<Affliction identifier="organdamage" amount="1000" />
-		</StatusEffect>		
+			<!-- choice gui -->
+			<CustomInterface
+				canbeselected="true" 
+				selectkey="Select"
+				drawhudwhenequipped="true" 
+				allowuioverlap="true">
+				<GuiFrame 
+					relativesize="0.16,0.15" 
+					anchor="Center" 
+					pivot="Center" 
+					relativeoffset="0.006,-0.05" 
+					style="ItemUI" />
+					<TickBox 
+						text="sb.slowhorrible">
+						<StatusEffect
+							type="OnUse"
+							targettype="This" 
+							tags="slowHorrible"
+							duration="0.1"/>
+						<StatusEffect
+							type="OnSecondaryUse" 
+							targettype="This" />
+					</TickBox>
+					<TickBox 
+						text="sb.fastpainless">
+						<StatusEffect
+							type="OnUse" 
+							targettype="This" 
+							tags="fastPainless"
+							duration="0.1"/>
+						<StatusEffect
+							type="OnSecondaryUse" 
+							targettype="This" />
+					</TickBox>
+					<Button 
+						text="sb.starttext" 
+						connection="signal_out1">
+						<StatusEffect
+							type="OnUse" 
+							target="This" 
+							stackable="false" 	
+							tags="hasStart"
+							duration="0.1"/>
+					</Button>
+			</CustomInterface>
+		</Controller>
 		
-		<!-- claw skin -->
-		<StatusEffect
-			target="This,AllLimbs"
-			disabledeltatime="true"
-			conditionalComparison="And">
-			<Conditional HasTag="sb_r9" TargetContainedItem="true"/>
-			
-			<Affliction identifier="miracleworker" amount="-100" />
-			<Affliction identifier="lacerations" amount="1000" />
-			<Affliction identifier="bitewounds" amount="1000" />
-		</StatusEffect>		
+		<!-- Repair/damage component -->
+		<Repairable
+			selectkey="Action"
+			header="mechanicalrepairsheader"
+			deteriorationspeed="0.10"
+			mindeteriorationdelay="60"
+			maxdeteriorationdelay="120"
+			RepairThreshold="80"
+			fixDurationHighSkill="7"
+			fixDurationLowSkill="20"
+			msg="ItemMsgRepairWrench"
+			hudpriority="10">
+			<GuiFrame relativesize="0.2,0.16" minsize="400,180" maxsize="480,280" anchor="Center" relativeoffset="0.1,0.27" style="ItemUI"/>
+			<RequiredSkill identifier="mechanical" level="35" />
+			<RequiredItem items="wrench" type="Equipped" />
+			<StatusEffect type="OnFailure" target="Character" targetlimbs="LeftHand,RightHand" AllowWhenBroken="true">
+			<Sound file="Content/Items/MechanicalRepairFail.ogg" range="1000" />
+			<Affliction identifier="lacerations" strength="12" />
+			<Affliction identifier="stun" strength="2" />
+		  </StatusEffect>
+		</Repairable>
 		
-		<!-- shoot head -->
-		<StatusEffect
-			target="This,Character"
-			targetlimbs="Head"
-			disabledeltatime="true"
-			conditionalComparison="And">
-			<Conditional HasTag="sb_r10" TargetContainedItem="true"/>
-			
-			<Affliction identifier="miracleworker" amount="-100" />
-			<Affliction identifier="gunshotwound" amount="1000" />
-		</StatusEffect>		
-		
-		<!-- crush -->
-		<StatusEffect
-			target="This,Character"
-			targetlimbs="Head"
-			disabledeltatime="true"
-			conditionalComparison="And">
-			<Conditional HasTag="sb_r11" TargetContainedItem="true"/>
-			
-			<Affliction identifier="miracleworker" amount="-100" />
-			<Affliction identifier="pressure" amount="1000" />
-		</StatusEffect>		
-		
-		<!-- lmao -->
-		<StatusEffect
-			target="This,Character"
-			targetlimbs="Head"
-			disabledeltatime="true"
-			conditionalComparison="And">
-			<Conditional HasTag="sb_r12" TargetContainedItem="true"/>
-			
-			<Affliction identifier="miracleworker" amount="-100" />
-			<Affliction identifier="sb_worsethandeath" amount="1000" />
-			<Affliction identifier="stun" amount="3" />
-		</StatusEffect>
-		
-		<!-- choice menu -->
-		<CustomInterface
+		<!-- Connection panel for power connection 
+			and status output -->
+		<ConnectionPanel 
+			selectkey="Action" 
 			canbeselected="true" 
-			selectkey="Select"
-			drawhudwhenequipped="true" 
-			allowuioverlap="true">
-			<GuiFrame 
-				relativesize="0.16,0.15" 
-				anchor="Center" 
-				pivot="Center" 
-				relativeoffset="0.006,-0.05" 
-				style="ItemUI" />
-			
-				<TickBox 
-					text="sb.slowhorrible">
-					<StatusEffect
-						type="OnUse"
-						targettype="This" 
-						tags="slowHorrible"
-						duration="0.1"/>
-					<StatusEffect
-						type="OnSecondaryUse" 
-						targettype="This" />
-				</TickBox>
-				
-				<TickBox 
-					text="sb.fastpainless">
-					<StatusEffect
-						type="OnUse" 
-						targettype="This" 
-						tags="fastPainless"
-						duration="0.1"/>
-					<StatusEffect
-						type="OnSecondaryUse" 
-						targettype="This" />
-				</TickBox>
-				
-				<Button 
-					text="sb.starttext" 
-					connection="signal_out1">
-					<StatusEffect
-						type="OnUse" 
-						target="This" 
-						stackable="false" 	
-						tags="hasStart"
-						duration="0.1"/>
-				</Button>
-				
-		</CustomInterface>
+			msg="ItemMsgRewireScrewdriver" 
+			hudpriority="10">
+		  <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
+		  <RequiredItem items="screwdriver" type="Equipped" />
+		  <input name="power_in" displayname="connection.powerin" />
+		  <output name="condition_out" displayname="connection.conditionout" />
+		  <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
+		</ConnectionPanel>
 		
-    </Controller>
-	
-    <ConnectionPanel 
-		selectkey="Action" 
-		canbeselected="true" 
-		msg="ItemMsgRewireScrewdriver" 
-		hudpriority="10">
-      <GuiFrame relativesize="0.2,0.32" minsize="400,350" maxsize="480,420" anchor="Center" style="ConnectionPanel" />
-      <RequiredItem items="screwdriver" type="Equipped" />
-      <input name="power_in" displayname="connection.powerin" />
-	  <output name="condition_out" displayname="connection.conditionout" />
-      <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
-    </ConnectionPanel>
-	
-	<Holdable 
-		selectkey="Action"
-		pickkey="Use"
-		slots="RightHand+LeftHand" 
-		PickingTime="5"
-		msg="itemmsgdetachcrowbar"
-		aimpos="0,0"
-		handle1="0,0"
-		attachable="true"
-		aimable="true">
-		<RequiredItem items="crowbar" type="Equipped" />
-	</Holdable>
+		<!-- Holdable component for manual placement -->
+		<Holdable 
+			selectkey="Action"
+			pickkey="Use"
+			slots="RightHand+LeftHand" 
+			PickingTime="5"
+			msg="sb.itemmsgdetachcrowbar"
+			aimpos="0,0"
+			handle1="0,0"
+			attachable="true"
+			aimable="true">
+			<RequiredItem items="crowbar" type="Equipped" />
+		</Holdable>
+	</Item>
 
-  </Item>
 
-	<!-- here goes the xml retardation -->
+		<!-- Mechanic Items -->
+		
+		<!-- [this section only exists to randomize
+		the outcome of status effects by
+		spawning in items and then checking for them
+		since apperantly devs didn't feel like adding
+		randomization values to xml apart from randomized item spawns, 
+		just the thing I deserve for strafing away from Lua] -->
+		
+	<!-- here goes the fruits of xml retardation -->
 	<Item
 		identifier="sb_r1"
 		noninteractable="true"
@@ -586,5 +581,7 @@
 			</StatusEffect>
 		</ItemComponent>
 	</Item>
+	<!-- end of retardation -->
+
 
 </Items>

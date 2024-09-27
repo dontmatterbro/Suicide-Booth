@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <infotexts language="English" nowhitespace="false" translatedname="English">
-
-	<afflictioncauseofdeath.suicided>Caved to the booth.</afflictioncauseofdeath.suicided>
-	<afflictioncauseofdeathself.suicided>You used the booth.</afflictioncauseofdeathself.suicided>
 	
-	<sb.slowhorrible>Slow and Horrible</sb.slowhorrible>
-	
-	<sb.fastpainless>Fast and Painless</sb.fastpainless>
-	
-	<sb.starttext>Start</sb.starttext>
-	
+	<!-- Items -->
 	<entityname.suicidebooth>Suicide Booth</entityname.suicidebooth>
 	<entitydescription.suicidebooth>An advanced piece of equipment to terminate oneself which has been in use for centuries.</entitydescription.suicidebooth>
 	
+	<!-- Afflictions -->
+	<afflictioncauseofdeath.suicided>Caved to the booth.</afflictioncauseofdeath.suicided>
+	<afflictioncauseofdeathself.suicided>You used the booth.</afflictioncauseofdeathself.suicided>
 	
+	<!-- GUI -->
+	<sb.slowhorrible>Slow and Horrible</sb.slowhorrible>
+	<sb.fastpainless>Fast and Painless</sb.fastpainless>
+	<sb.starttext>Start</sb.starttext>
+	<sb.itemmsgdetachcrowbar>[[use]] Detach (Crowbar)</sb.itemmsgdetachcrowbar>
+	<sb.ItemMsgEnterBooth>[[select]] Enter Booth</sb.ItemMsgEnterBooth>
 	
 </infotexts>
