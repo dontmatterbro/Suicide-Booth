@@ -36,6 +36,15 @@
 			texture="%ModDir%/Images/suicidebooth.png" 
 			sourcerect="0,0,166,374" origin="0.5,0.5" depth="0.51"
 			premultiplyalpha="false"/>
+			
+		<!-- Broken Booth -->
+		<DecorativeSprite 
+			texture="%ModDir%/Images/suicidebooth.png" 
+			sourcerect="167,0,166,374" origin="0.5,0.5" depth="0.51"
+			premultiplyalpha="false"
+			fadein="true">
+			<Conditional condition="lte 0" />
+		</DecorativeSprite>
 		
 		<!-- Container componenent to randomize results
 			by checking spawning items -->
