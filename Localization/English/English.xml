@@ -3,7 +3,7 @@
 	
 	<!-- Items -->
 	<entityname.suicidebooth>Suicide Booth</entityname.suicidebooth>
-	<entitydescription.suicidebooth>An advanced piece of equipment to terminate oneself which has been in use for centuries.</entitydescription.suicidebooth>
+	<entitydescription.suicidebooth>An advanced piece of equipment named "Stop 'n' Drop 2000". General usage cases include but are not limited to terminating oneself's existence.</entitydescription.suicidebooth>
 	
 	<!-- Afflictions -->
 	<afflictioncauseofdeath.suicided>Caved to the booth.</afflictioncauseofdeath.suicided>
