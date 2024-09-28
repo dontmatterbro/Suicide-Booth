@@ -17,12 +17,16 @@
 			minstrength="0" 
 			maxstrength="1">
 			<StatusEffect
+				target="Character">
+				<Affliction identifier="sb_scream" amount="100" />
+			</StatusEffect>
+			<StatusEffect
 				target="Character"
 				targetlimbs="Head"
-				severlimbsprobability="1">
+				severlimbsprobability="1"> 
 				<ParticleEmitter particle="blood" copyentityangle="true" anglemin="0" anglemax="0" particlespersecond="10" velocitymin="65" velocitymax="220" scalemin="1.5" scalemax="2.8" />	
 				<Explosion range="1" decal="blood" decalsize="10" flashrange="0" stun="0" force="2" flames="false" smoke="false" shockwave="false" sparks="false" underwaterbubble="false" ignorecover="true" camerashake="0" camerashakerange="0" screencolor="0,0,0,0" screencolorrange="0" screencolorduration="0"/>
-				<Affliction identifier="sb_death" amount="100" />
+				<Affliction identifier="sb_death" amount="100" /> 
 			</StatusEffect>
 		</Effect>
 	</Affliction>    
@@ -42,14 +46,10 @@
 			<StatusEffect
 				target="AllLimbs"
 				severlimbsprobability="1">
+				
 				<ParticleEmitter particle="blood" copyentityangle="true" anglemin="0" anglemax="0" particlespersecond="20" velocitymin="65" velocitymax="220" scalemin="1.5" scalemax="2.8" />	
 				<Explosion range="1" decal="blood" decalsize="10" flashrange="0" stun="0" force="2" flames="false" smoke="false" shockwave="false" sparks="false" underwaterbubble="false" ignorecover="true" camerashake="0" camerashakerange="0" screencolor="0,0,0,0" screencolorrange="0" screencolorduration="0"/>
-			</StatusEffect>
-			<StatusEffect
-				target="Character"
-				targetlimbs="Head"
-				disabledeltatime="true"
-				interval="2">
+				<Affliction identifier="sb_scream" amount="100" />
 				<Affliction identifier="sb_death" amount="0.5" />
 			</StatusEffect>
 			<StatusEffect 
@@ -72,14 +72,16 @@
 			minstrength="0" 
 			maxstrength="1">
 			<StatusEffect
+				target="Character">
+				<Affliction identifier="sb_scream" amount="100" />
+			</StatusEffect>
+			<StatusEffect
 				target="AllLimbs">
 				<Affliction identifier="burn" amount="1000" />
 			</StatusEffect>			
 			<StatusEffect
 				target="Character"
-				targetlimbs="Head"
-				disabledeltatime="true"
-				interval="2">
+				targetlimbs="Head">
 				<Affliction identifier="sb_death" amount="0.5" />
 			</StatusEffect>
 		</Effect>
@@ -97,6 +99,14 @@
 		<Effect 
 			minstrength="0" 
 			maxstrength="1">
+			<StatusEffect 
+				target="Character">
+				<Hook name="sb.acidburn" />
+			</StatusEffect>
+			<StatusEffect
+				target="Character">
+				<Affliction identifier="sb_scream" amount="100" />
+			</StatusEffect>
 			<StatusEffect
 				target="AllLimbs">
 				<Affliction identifier="acidburn" amount="1000" />
@@ -123,6 +133,10 @@
 		<Effect 
 			minstrength="0" 
 			maxstrength="1">
+			<StatusEffect 
+				target="Character">
+				<Hook name="sb.punch" />
+			</StatusEffect>
 			<StatusEffect
 				target="Character"
 				targetlimbs="Torso">
@@ -137,7 +151,7 @@
 				disabledeltatime="true"
 				interval="2">
 				<Affliction identifier="sb_death" amount="0.5" />
-			</StatusEffect>
+			</StatusEffect> 
 		</Effect>
 	</Affliction>	
 	
@@ -155,7 +169,6 @@
 			maxstrength="1">
 			<StatusEffect
 				target="AllLimbs">
-				
 				<Affliction identifier="lacerations" amount="1000" />
 				<Affliction identifier="bleedingnonstop" amount="1000" />
 			</StatusEffect>			
@@ -182,9 +195,12 @@
 			minstrength="0" 
 			maxstrength="1">
 			<StatusEffect
+				target="Character">
+				<Affliction identifier="sb_scream" amount="100" />
+			</StatusEffect>
+			<StatusEffect
 				target="Character"
 				targetlimbs="Torso">
-
 				<Affliction identifier="lacerations" amount="1000" />
 				<Affliction identifier="internaldamage" amount="1000" />
 				<Affliction identifier="organdamage" amount="1000" />
@@ -216,8 +232,11 @@
 			minstrength="0" 
 			maxstrength="1">
 			<StatusEffect
+				target="Character">
+				<Affliction identifier="sb_scream" amount="100" />
+			</StatusEffect>
+			<StatusEffect
 				target="AllLimbs">
-				
 				<Affliction identifier="bitewounds" amount="1000" />
 			</StatusEffect>		
 			<StatusEffect
@@ -258,7 +277,6 @@
 				<Affliction identifier="spaceherpes" amount="100" />
 				<Affliction identifier="psychosis" amount="100" />
 				<Affliction identifier="opiateaddiction" amount="100" />
-				<Affliction identifier="sb_scream" amount="100" />
 			</StatusEffect>
 		</Effect>
 	</Affliction>
@@ -320,7 +338,7 @@
 	
 	<!-- instant crush -->
     <Affliction 
-		identifier="sb_crush" 
+		identifier="sb_electrocute" 
 		healableinmedicalclinic="false" 
 		limbspecific="false" 
 		indicatorlimb="Head"
@@ -331,15 +349,9 @@
 			minstrength="0" 
 			maxstrength="1">
 			<StatusEffect
-				target="Character">
-				<Affliction identifier="pressure" amount="1000" />
-			</StatusEffect>
-			<StatusEffect
 				target="Character"
-				targetlimbs="Head"
-				disabledeltatime="true"
-				interval="2">
-				<Affliction identifier="sb_death" amount="0.5" />
+				targetlimbs="Head">
+				<Affliction identifier="sb_death" amount="100" />
 			</StatusEffect>
 		</Effect>
 	</Affliction> 

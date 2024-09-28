@@ -10,10 +10,10 @@
 	<afflictioncauseofdeathself.suicided>You used the booth.</afflictioncauseofdeathself.suicided>
 	
 	<!-- GUI -->
-	<sb.slowhorrible>Slow and Horrible</sb.slowhorrible>
+	<sb.slowhorrible>Violent and Horrible</sb.slowhorrible>
 	<sb.fastpainless>Fast and Painless</sb.fastpainless>
 	<sb.starttext>Start</sb.starttext>
 	<sb.itemmsgdetachcrowbar>[[use]] Detach (Crowbar)</sb.itemmsgdetachcrowbar>
 	<sb.ItemMsgEnterBooth>[[select]] Enter Booth</sb.ItemMsgEnterBooth>
-	
+	<sb.ItemMsgElectricityRequired>Electrical connection required</sb.ItemMsgElectricityRequired>
 </infotexts>

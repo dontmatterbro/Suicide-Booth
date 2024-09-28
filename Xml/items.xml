@@ -4,7 +4,7 @@
 	<!-- the singular visible item of the mod -->
 	<Item
 		  identifier="suicidebooth"
-		  scale="0.4" 
+		  scale="0.5" 
 		  maxstacksize="1"
 		  category="medical"
 		  isshootable="true"
@@ -29,12 +29,12 @@
 		
 		<InventoryIcon
 			texture="%ModDir%/Images/suicidebooth.png" 
-			sourcerect="0,0,230,416" origin="0.5,0.5" />
+			sourcerect="0,0,166,374" origin="0.5,0.5" />
 		
 		<!-- Booth -->
 		<sprite
 			texture="%ModDir%/Images/suicidebooth.png" 
-			sourcerect="0,0,230,416" origin="0.5,0.5" depth="0.56"
+			sourcerect="0,0,166,374" origin="0.5,0.5" depth="0.51"
 			premultiplyalpha="false"/>
 		
 		<!-- Container componenent to randomize results
@@ -61,11 +61,11 @@
 			AllowSelectingWhenSelectedByBot="true"
 			AllowWhenBroken="false">
 			
-			<limbposition limb="Head" position="100,-200" allowusinglimb="false" />
-			<limbposition limb="Torso" position="100,-200" allowusinglimb="false" />
-			<limbposition limb="Waist" position="100,-200" allowusinglimb="false" />
-			<limbposition limb="RightFoot" position="100,-200" allowusinglimb="false" />
-			<limbposition limb="LeftFoot" position="100,-200" allowusinglimb="false" />
+			<limbposition limb="Head" position="50,-150" allowusinglimb="false" />
+			<limbposition limb="Torso" position="100,-100" allowusinglimb="false" />
+			<limbposition limb="Waist" position="50,-200" allowusinglimb="false" />
+			<limbposition limb="RightFoot" position="100,-400" allowusinglimb="false" />
+			<limbposition limb="LeftFoot" position="100,-400" allowusinglimb="false" />
 			<limbposition limb="RightHand" position="100,-200" allowusinglimb="false" />
 			<limbposition limb="LeftHand" position="100,-200" allowusinglimb="false" />
 			<RequiredItem items="deepdivinglarge" type="Picked" requireempty="true" />
@@ -76,12 +76,12 @@
 				LightColor="0,0,0,0"
 				range="0"
 				powerconsumption="500">
-
 				<StatusEffect
 					type="OnActive"
 					target="This"
 					tags="hasPower"
-					duration="0.1"/>
+					duration="0.1"
+					DisableInteract="true" setvalue="true"/>
 			</LightComponent>
 			
 			<!-- spawn a random item
@@ -136,6 +136,8 @@
 				conditionalComparison="And">
 				<Conditional HasTag="sb_r5" TargetContainedItem="true"/>
 				
+				<Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
+				
 				<Affliction identifier="sb_overdose" amount="1000" />
 			</StatusEffect>	
 				
@@ -146,17 +148,24 @@
 				conditionalComparison="And">
 				<Conditional HasTag="sb_r10" TargetContainedItem="true"/>
 				
+				<Sound file="Content/Items/Weapons/Revolver1.ogg" selectionmode="random" range="500" />
+				<Sound file="Content/Items/Weapons/Revolver2.ogg" range="500" />
+				<Sound file="Content/Items/Weapons/Revolver3.ogg" range="500" />
+				
 				<Affliction identifier="sb_headshot" amount="1000" />
 			</StatusEffect>	
 				
-			<!-- instant crush -->
+			<!-- electrocute -->
 			<StatusEffect
 				target="This,Character"
 				disabledeltatime="true"
 				conditionalComparison="And">
 				<Conditional HasTag="sb_r11" TargetContainedItem="true"/>
 				
-				<Affliction identifier="sb_crush" amount="1000" />
+				<Sound file="Content/Items/Weapons/TaserHit1.ogg" selectionmode="random" range="500" />
+				<Sound file="Content/Items/Weapons/TaserHit2.ogg" range="500" />
+				
+				<Affliction identifier="sb_electrocute" amount="1000" />
 			</StatusEffect>	
 				
 				
@@ -168,6 +177,18 @@
 				CheckConditionalAlways="true">
 				<Conditional HasTag="sb_r1" TargetContainedItem="true"/>
 				
+				<Sound file="Content/Sounds/Damage/Implode.ogg" range="500" />
+				<Sound file="Content/Sounds/Damage/Gore1.ogg" selectionmode="random" range="500" />
+				<Sound file="Content/Sounds/Damage/Gore2.ogg" range="500" />
+				<Sound file="Content/Sounds/Damage/Gore3.ogg" range="500" />
+				<Sound file="Content/Sounds/Damage/Gore4.ogg" range="500" />
+				<Sound file="Content/Sounds/Damage/Gore5.ogg" range="500" />
+				<Sound file="Content/Sounds/Damage/Gore6.ogg" range="500" />
+				<Sound file="Content/Sounds/Damage/Gore7.ogg" range="500" />
+				<Sound file="Content/Sounds/Damage/Gore8.ogg" range="500" />
+				<Sound file="Content/Sounds/Damage/Gore9.ogg" range="500" />
+				<Sound file="Content/Sounds/Damage/Gore10.ogg" range="500" />
+				
 				<Affliction identifier="sb_decapitated" amount="100" />
 			</StatusEffect>
 			
@@ -177,6 +198,12 @@
 				disabledeltatime="true"
 				CheckConditionalAlways="true">
 				<Conditional HasTag="sb_r2" TargetContainedItem="true"/>
+				
+				<Sound file="Content/Sounds/Damage/Implode.ogg" range="500" />
+				<Sound file="Content/Sounds/Damage/Gore1.ogg" selectionmode="random" range="500" />
+				<Sound file="Content/Sounds/Damage/Gore2.ogg" range="500" />
+				<Sound file="Content/Sounds/Damage/Gore3.ogg" range="500" />
+				<Sound file="Content/Sounds/Damage/Gore4.ogg" range="500" />
 				
 				<Affliction identifier="sb_dismembered" amount="100" />
 			</StatusEffect>
@@ -190,7 +217,7 @@
 				
 				<Affliction identifier="sb_burn" amount="100" />
 				
-				<Sound file="%ModDir%/Sounds/burning_male_02.ogg" volume="1" range="500" />
+				<Sound file="%ModDir%/Sounds/flame.ogg" range="500" />
 			</StatusEffect>				
 			
 			<!-- acid burn -->
@@ -199,6 +226,8 @@
 				disabledeltatime="true"
 				conditionalComparison="And">
 				<Conditional HasTag="sb_r4" TargetContainedItem="true"/>
+				
+				<Sound file="%ModDir%/Sounds/acid.ogg" range="500" />
 				
 				<Affliction identifier="sb_acidburn" amount="1000" />
 			</StatusEffect>	
@@ -210,6 +239,11 @@
 				conditionalComparison="And">
 				<Conditional HasTag="sb_r6" TargetContainedItem="true"/>
 				
+				<Sound file="Content/Sounds/Damage/ArmorBreak1.ogg" selectionmode="random" range="500" />
+				<Sound file="Content/Sounds/Damage/ArmorBreak2.ogg" range="500" />
+				<Sound file="Content/Sounds/Damage/ArmorBreak3.ogg" range="500" />
+				<Sound file="Content/Sounds/Damage/ArmorBreak4.ogg" range="500" />
+				
 				<Affliction identifier="sb_punch" amount="1000" />
 			</StatusEffect>
 			
@@ -219,6 +253,11 @@
 				disabledeltatime="true"
 				conditionalComparison="And">
 				<Conditional HasTag="sb_r7" TargetContainedItem="true"/>
+				
+				<Sound file="Content/Sounds/Damage/Ricochet1.ogg" range="500" />
+				<Sound file="Content/Sounds/Damage/Ricochet2.ogg" range="500" />
+				<Sound file="Content/Sounds/Damage/Ricochet3.ogg" range="500" />
+				<Sound file="Content/Sounds/Damage/Ricochet4.ogg" range="500" />
 				
 				<Affliction identifier="sb_laceration" amount="1000" />
 			</StatusEffect>		
@@ -231,6 +270,8 @@
 				conditionalComparison="And">
 				<Conditional HasTag="sb_r8" TargetContainedItem="true"/>
 				
+				<Sound file="%ModDir%/Sounds/scoop.ogg" range="500" />
+				
 				<Affliction identifier="sb_scoop" amount="1000" />
 			</StatusEffect>	
 			
@@ -240,6 +281,10 @@
 				disabledeltatime="true"
 				conditionalComparison="And">
 				<Conditional HasTag="sb_r9" TargetContainedItem="true"/>
+
+				<Sound file="Content/Characters/Charybdis/Bite1.ogg" selectionmode="random" range="500" />
+				<Sound file="Content/Characters/Charybdis/Bite2.ogg" range="500" />
+				<Sound file="Content/Characters/Charybdis/Bite3.ogg" range="500" />
 
 				<Affliction identifier="sb_claw" amount="1000" />
 			</StatusEffect>		
@@ -251,6 +296,8 @@
 				disabledeltatime="true"
 				conditionalComparison="And">
 				<Conditional HasTag="sb_r12" TargetContainedItem="true"/>
+				
+				<Sound file="Content/Items/Medical/Syringe.ogg" range="500" />
 				
 				<Affliction identifier="sb_worsethandeath" amount="1000" />
 				<Affliction identifier="sb_scream" amount="1000" />
@@ -265,9 +312,7 @@
 				allowuioverlap="true">
 				<GuiFrame 
 					relativesize="0.16,0.15" 
-					anchor="Center" 
-					pivot="Center" 
-					relativeoffset="0.006,-0.05" 
+					anchor="CenterRight"
 					style="ItemUI" />
 					<TickBox 
 						text="sb.slowhorrible">
@@ -299,7 +344,15 @@
 							target="This" 
 							stackable="false" 	
 							tags="hasStart"
-							duration="0.1"/>
+							duration="0.1"/>						
+							
+						<StatusEffect
+							type="OnUse" 
+							target="This" 
+							stackable="false">
+							<Conditional HasStatusTag="neq hasPower" />
+							<Sound file="Content/Items/Button/Button.ogg" range="500" />
+						</StatusEffect>
 					</Button>
 			</CustomInterface>
 		</Controller>
@@ -339,7 +392,7 @@
 		  <output name="condition_out" displayname="connection.conditionout" />
 		  <output name="state_out" displayname="connection.stateout" fallbackdisplayname="connection.signalout" />
 		</ConnectionPanel>
-		
+
 		<!-- Holdable component for manual placement -->
 		<Holdable 
 			selectkey="Action"

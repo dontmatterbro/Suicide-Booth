@@ -2,6 +2,11 @@
 --copied over from NT items.lua with some changes
 --removes and drops all existing organs inside the torso upon scoop
 Hook.Add("sb.scoop", "sb.scoop", function(effect, deltaTime, item, targets, worldPosition, element)
+	--only enable lua part if NT exists
+	if (SERVER or (CLIENT and not Game.IsMultiplayer)) and NTC==nil then
+		return
+	end
+
 	--get the character
 	local targetCharacter=nil
 	
@@ -18,7 +23,7 @@ Hook.Add("sb.scoop", "sb.scoop", function(effect, deltaTime, item, targets, worl
 		
 		--liver
 		if(limbtype == LimbType.Torso) then
-			local damage = HF.GetAfflictionStrength(targetCharacter,"liverdamage",0)
+			local damage = HF.GetAfflictionStrength(targetCharacter,"liverdamage",0)+math.random(0,100)
 			local removed = HF.GetAfflictionStrength(targetCharacter,"liverremoved",0)
 			if(removed <= 0) then
 
@@ -59,7 +64,7 @@ Hook.Add("sb.scoop", "sb.scoop", function(effect, deltaTime, item, targets, worl
 		
 		--lungs
 		if(limbtype == LimbType.Torso) then
-			local damage = HF.GetAfflictionStrength(targetCharacter,"lungdamage",0)
+			local damage = HF.GetAfflictionStrength(targetCharacter,"lungdamage",0)+math.random(0,100)
 			local removed = HF.GetAfflictionStrength(targetCharacter,"lungremoved",0)
 			if(removed <= 0) then
 
@@ -103,7 +108,7 @@ Hook.Add("sb.scoop", "sb.scoop", function(effect, deltaTime, item, targets, worl
 		
 		--heart
 		if(limbtype == LimbType.Torso) then
-			local damage = HF.GetAfflictionStrength(targetCharacter,"heartdamage",0)
+			local damage = HF.GetAfflictionStrength(targetCharacter,"heartdamage",0)+math.random(0,100)
 			local removed = HF.GetAfflictionStrength(targetCharacter,"heartremoved",0)
 			if(removed <= 0) then
 
@@ -147,7 +152,7 @@ Hook.Add("sb.scoop", "sb.scoop", function(effect, deltaTime, item, targets, worl
 		
 		--kidneys
 		if(limbtype == LimbType.Torso) then
-			local damage = HF.GetAfflictionStrength(targetCharacter,"kidneydamage",0)
+			local damage = HF.GetAfflictionStrength(targetCharacter,"kidneydamage",0)+math.random(0,100)
 			local removed = HF.GetAfflictionStrength(targetCharacter,"kidneyremoved",0)
 			if(removed <= 0) then
 
@@ -218,6 +223,11 @@ end)
 --copied over from NT items.lua with minute changes
 --removes and drops all existing limbs upon dismember
 Hook.Add("sb.dismember", "sb.dismember", function(effect, deltaTime, item, targets, worldPosition, element)
+	--only enable lua part if NT exists
+	if (SERVER or (CLIENT and not Game.IsMultiplayer)) and NTC==nil then
+		return
+	end
+
 	--get the character
 	local targetCharacter=nil
 	
@@ -251,4 +261,48 @@ Hook.Add("sb.dismember", "sb.dismember", function(effect, deltaTime, item, targe
 			end
 		end
 	end
+end)
+
+Hook.Add("sb.punch", "sb.punch", function(effect, deltaTime, item, targets, worldPosition, element)
+	--only enable lua part if NT exists
+	if (SERVER or (CLIENT and not Game.IsMultiplayer)) and NTC==nil then
+		return
+	end
+
+	--get the character
+	local targetCharacter=nil
+	
+	for setTarget in targets do
+		targetCharacter=setTarget
+	end
+	
+	HF.SetAffliction(targetCharacter,"liverdamage", math.random(25,100))
+	HF.SetAffliction(targetCharacter,"heartdamage", math.random(25,100))
+	HF.SetAffliction(targetCharacter,"lungdamage", math.random(25,100))
+	HF.SetAffliction(targetCharacter,"kidneydamage", math.random(25,100))
+	HF.SetAffliction(targetCharacter,"t_fracture", 100)
+
+end)
+
+Hook.Add("sb.acidburn", "sb.acidburn", function(effect, deltaTime, item, targets, worldPosition, element)
+	--only enable lua part if NT exists
+	if (SERVER or (CLIENT and not Game.IsMultiplayer)) and NTC==nil then
+		return
+	end
+
+	--get the character
+	local targetCharacter=nil
+	
+	for setTarget in targets do
+		targetCharacter=setTarget
+	end
+	
+	--get their limbs
+	local limbtype=nil
+	
+	for setLimb in LimbType do
+		local limbtype = HF.NormalizeLimbType(setLimb)
+		HF.SetAfflictionLimb(targetCharacter,"burn",limbtype,math.random(25,100))
+	end
+
 end)

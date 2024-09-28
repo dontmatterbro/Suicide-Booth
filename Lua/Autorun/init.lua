@@ -9,10 +9,6 @@ Timer.Wait(function() if NTC ~= nil then NTC.RegisterExpansion(SBTH) end end,1)
 
 
 Timer.Wait(function() 
-	--only enable lua part if NT exists
-	if (SERVER or (CLIENT and not Game.IsMultiplayer)) and NTC==nil then
-		return
-	end
 	
 		--server side scripts
 	if (SERVER or (CLIENT and not Game.IsMultiplayer)) then
